@@ -7,4 +7,4 @@ services:
             - "27017:27017"
         volumes:
             - "./volume/dbshell:/home/mongodb/.dbshell" 
-        command: mongod --storageEngine wiredTiger  
+        command: mongod --auth --storageEngine wiredTiger  

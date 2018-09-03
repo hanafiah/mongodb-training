@@ -1,0 +1,5 @@
+show databases
+use admin
+db.getUsers()
+db.getUsers()
+show databases
