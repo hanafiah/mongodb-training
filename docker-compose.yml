@@ -84,12 +84,20 @@ services:
         image: percona/percona-server-mongodb
         container_name: mongos1
         ports:
-            - "27020:27020"
-        command: mongos --port 27020 --configdb cfg/config1:27030,config2:27031,config3:27032
+            - "27060:27017"
+        depends_on:
+          - config1
+          - config2
+          - config3
+        command: mongos --configdb cfg/config1:27030,config2:27031,config3:27032 --port 27017 --bind_ip_all
     mongos2:
         image: percona/percona-server-mongodb
         container_name: mongos2
         ports:
-            - "27021:27021"
-        command: mongos --port 27021 --configdb cfg/config1:27030,config2:27031,config3:27032
+            - "27061:27017"
+        depends_on:
+          - config1
+          - config2
+          - config3
+        command: mongos --configdb cfg/config1:27030,config2:27031,config3:27032 --port 27017 --bind_ip_all
 
