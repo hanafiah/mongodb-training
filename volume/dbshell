@@ -3,3 +3,15 @@ use admin
 db.getUsers()
 db.getUsers()
 show databases
+use admin
+db.getUsers()
+db.runCommand({ connectionStatus: 1 })
+use admin
+db.getUser("training_admin")
+use admin
+db.getUser("training_admin")
+db.getUsers()
+db.getUser("training_user")
+db.getUsers()
+db.grantRolesToUser(    "training_user",    [{ role: "readWrite", db: "training101" } ] )
+db.getUser("training_user")
