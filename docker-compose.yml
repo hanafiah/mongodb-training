@@ -15,7 +15,7 @@ services:
             - "27040:27040"
         volumes:
             - "./volume/sample:/home/sample/"     
-        command: mongod --port 27040 --replSet rs1 --storageEngine wiredTiger 
+        command: mongod --port 27040 --shardsvr --replSet rs1 --storageEngine wiredTiger 
     rs1r2:
         image: percona/percona-server-mongodb
         container_name: rs1r2
@@ -23,7 +23,7 @@ services:
             - "27041:27041"
         volumes:
             - "./volume/sample:/home/sample/" 
-        command: mongod --port 27041 --replSet rs1 --storageEngine wiredTiger 
+        command: mongod --port 27041 --shardsvr --replSet rs1 --storageEngine wiredTiger 
     rs1r3:
         image: percona/percona-server-mongodb
         container_name: rs1r3
@@ -31,7 +31,7 @@ services:
             - "27042:27042"
         volumes:
             - "./volume/sample:/home/sample/" 
-        command: mongod --port 27042 --replSet rs1 --storageEngine wiredTiger 
+        command: mongod --port 27042 --shardsvr --replSet rs1 --storageEngine wiredTiger 
     rs2r1:
         image: percona/percona-server-mongodb
         container_name: rs2r1
@@ -39,7 +39,7 @@ services:
             - "27050:27050"
         volumes:
             - "./volume/sample:/home/sample/"     
-        command: mongod --port 27050 --replSet rs2 --storageEngine wiredTiger 
+        command: mongod --port 27050 --shardsvr --replSet rs2 --storageEngine wiredTiger 
     rs2r2:
         image: percona/percona-server-mongodb
         container_name: rs2r2
@@ -47,7 +47,7 @@ services:
             - "27051:27051"
         volumes:
             - "./volume/sample:/home/sample/" 
-        command: mongod --port 27051 --replSet rs2 --storageEngine wiredTiger 
+        command: mongod --port 27051 --shardsvr --replSet rs2 --storageEngine wiredTiger 
     rs2r3:
         image: percona/percona-server-mongodb
         container_name: rs2r3
@@ -55,7 +55,7 @@ services:
             - "27052:27052"
         volumes:
             - "./volume/sample:/home/sample/" 
-        command: mongod --port 27052 --replSet rs2 --storageEngine wiredTiger 
+        command: mongod --port 27052 --shardsvr --replSet rs2 --storageEngine wiredTiger 
     config1:
         image: percona/percona-server-mongodb
         container_name: config1
@@ -86,9 +86,9 @@ services:
         ports:
             - "27060:27017"
         depends_on:
-          - config1
-          - config2
-          - config3
+           - config1
+           - config2
+           - config3
         command: mongos --configdb cfg/config1:27030,config2:27031,config3:27032 --port 27017 --bind_ip_all
     mongos2:
         image: percona/percona-server-mongodb
