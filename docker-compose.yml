@@ -63,7 +63,7 @@ services:
             - "27030:27030"
         volumes:
             - "./volume/data/configdb1:/data/configdb"
-        command: mongod --configsvr --replSet cfg --port 27030 
+        command: mongod --configsvr --replSet cfg --port 27030 --dbpath /data/db
     config2:
         image: percona/percona-server-mongodb
         container_name: config2
@@ -71,7 +71,7 @@ services:
             - "27031:27031"
         volumes:
             - "./volume/data/configdb2:/data/configdb"    
-        command: mongod --configsvr --replSet cfg --port 27031 
+        command: mongod --configsvr --replSet cfg --port 27031 --dbpath /data/db
     config3:
         image: percona/percona-server-mongodb
         container_name: config3
@@ -79,12 +79,14 @@ services:
             - "27032:27032"
         volumes:
             - "./volume/data/configdb3:/data/configdb"
-        command: mongod --configsvr --replSet cfg --port 27032 
+        command: mongod --configsvr --replSet cfg --port 27032 --dbpath /data/db
     mongos1:
         image: percona/percona-server-mongodb
         container_name: mongos1
         ports:
             - "27060:27017"
+        volumes:
+            - "./volume/sample:/home/sample/"     
         depends_on:
            - config1
            - config2
@@ -95,6 +97,8 @@ services:
         container_name: mongos2
         ports:
             - "27061:27017"
+        volumes:
+            - "./volume/sample:/home/sample/" 
         depends_on:
           - config1
           - config2
